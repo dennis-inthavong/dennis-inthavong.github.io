@@ -1,15 +1,12 @@
 # Dennis — IT & Cybersecurity Portfolio
 
-Personal portfolio site for IT support and cybersecurity roles, built as static HTML and hosted via GitHub Pages.
+Personal portfolio site targeting both IT Support and Cybersecurity roles, built as a single static HTML file and hosted via GitHub Pages.
 
 ---
 
-## Live Sites
+## Live Site
 
-| Portfolio | URL | Purpose |
-|---|---|---|
-| Cybersecurity | `https://dennis-inthavong.github.io/dennis_portfolio.html` | SOC / Blue Team roles |
-| Helpdesk | `https://dennis-inthavong.github.io/dennis_helpdesk_portfolio.html` | IT Support / Deskside roles |
+**https://dennis-inthavong.github.io/dennisinthavong_portfolio.html**
 
 ---
 
@@ -22,29 +19,36 @@ First-year IT Systems Administration student at **NAIT, Edmonton, Alberta**. Cer
 ## What's In This Repo
 
 ```
-├── dennis_portfolio.html         # Cybersecurity-focused portfolio + live Log Analyzer tool
-├── dennis_helpdesk_portfolio.html  # Helpdesk-focused portfolio + Ticket Simulator tool
-└── README.md                     # This file
+├── dennis_combined_portfolio.html   # Combined portfolio with both live tools
+└── README.md                        # This file
 ```
 
-### dennis_portfolio.html — Cybersecurity Portfolio
-A dark-themed portfolio targeting SOC Analyst and blue team roles. Features a **live Log Analyzer tool** that parses Windows Event Log and Linux syslog entries, flagging suspicious patterns including:
+---
+
+## Portfolio Features
+
+### Dual-Audience Design
+The portfolio is built to speak to two types of hiring managers without alienating either:
+- **Helpdesk & IT Support** roles — leads with support skills, troubleshooting experience, and people-first framing
+- **Blue Team & SOC** roles — highlights security tools, log analysis, and threat detection knowledge
+
+### Tabbed Skills Section
+Skills are organized into two switchable views:
+- **IT Support** — end-user support, Active Directory, networking, Microsoft 365, ticketing
+- **Cybersecurity** — SIEM, log analysis, threat detection, Microsoft Sentinel, KQL, Wazuh
+
+### Live Interactive Tools
+
+**🖥️ Helpdesk Ticket Simulator**
+Generates realistic helpdesk tickets with step-by-step troubleshooting walkthroughs across 8 common support scenarios: password resets, network connectivity, email/M365, hardware, software, printers, VPN, and slow PCs. Includes escalation guidance where appropriate.
+
+**🔍 Log Analyzer**
+Parses Windows Event Log and Linux syslog entries, flagging suspicious activity by severity. Detects patterns including:
 - Brute force / credential stuffing attempts
 - Privilege escalation (sudo shell, UID=0 account creation)
 - Suspicious scheduled tasks and cron jobs
 - Audit log clearing
 - Lateral movement indicators
-
-### dennis_helpdesk_portfolio.html — Helpdesk Portfolio
-A clean, professional portfolio targeting IT Support and Deskside Analyst roles. Features a **live Helpdesk Ticket Simulator** covering 8 common support scenarios with step-by-step troubleshooting walkthroughs and escalation guidance:
-- Password & account lockouts
-- Network connectivity issues
-- Email & Microsoft 365 problems
-- Hardware & peripheral failures
-- Software crashes
-- Printer issues
-- VPN & remote access
-- Slow / unresponsive PCs
 
 ---
 
@@ -53,7 +57,7 @@ A clean, professional portfolio targeting IT Support and Deskside Analyst roles.
 - ✅ Google IT Support Professional — Coursera
 - ✅ Google Cybersecurity Professional — Coursera
 - 🔄 CompTIA Security+ — In Progress
-- 🔄 Microsoft Az-900 (Azure Fundamentals) — Planned
+- 📅 Microsoft SC-200 (Security Operations Analyst) — Planned
 
 ---
 
