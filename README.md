@@ -12,8 +12,7 @@ Personal portfolio site targeting both IT Support and Cybersecurity roles, built
 
 ## About Me
 
-First-year IT Systems Administration student at **NAIT, Edmonton, Alberta**. Certified in Google IT Support Professional and Google Cybersecurity Professional. Currently pursuing CompTIA Security+ with a long-term goal of working in blue team cybersecurity (SOC Analysis) before transitioning into offensive security.
-
+Entry-level IT professional with hands-on experiences in workstation deployment, Tier 1 support, and security fundamentals. Former IT Technician supporting enterprise environments, with practical exposure to Active Directory, PowerShell, Linux CLI, firewalls and SIEM tools. Certified in Google IT Support and Cybersecurity.
 ---
 
 ## What's In This Repo
