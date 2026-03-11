@@ -6,7 +6,7 @@ Personal portfolio site targeting both IT Support and Cybersecurity roles, built
 
 ## Live Site
 
-**https://dennis-inthavong.github.io/dennisinthavong_portfolio.html**
+**https://dennis-inthavong.github.io/portfolio.html**
 
 ---
 
