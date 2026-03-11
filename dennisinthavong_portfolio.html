@@ -1,0 +1,1003 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dennis Inthavong | IT Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:         #f6f4f1;
+      --surface:    #ffffff;
+      --surface2:   #efecea;
+      --border:     #e0dbd3;
+      --muted:      #9a9188;
+      --text:       #3d3830;
+      --heading:    #1a1612;
+      --blue:       #1a6ef5;
+      --blue-lt:    #e8f0fe;
+      --teal:       #0d9e7e;
+      --teal-lt:    #e4f7f2;
+      --amber:      #c47f00;
+      --amber-lt:   #fef3e2;
+      --red:        #d03050;
+      --red-lt:     #fde8ec;
+      --serif:      'DM Serif Display', Georgia, serif;
+      --sans:       'DM Sans', sans-serif;
+      --mono:       'DM Mono', monospace;
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--sans);
+      font-size: 15px;
+      line-height: 1.75;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 2.5rem; height: 58px;
+      background: rgba(246,244,241,0.95);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo {
+      font-family: var(--serif);
+      font-size: 1.15rem;
+      color: var(--heading);
+      text-decoration: none;
+    }
+    .nav-links { display: flex; gap: 1.75rem; list-style: none; }
+    .nav-links a {
+      font-size: 0.82rem; font-weight: 500;
+      color: var(--muted); text-decoration: none;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--blue); }
+
+    /* ── LAYOUT ── */
+    main { max-width: 900px; margin: 0 auto; padding: 0 2rem; }
+    section { padding: 5.5rem 0 4rem; border-bottom: 1px solid var(--border); }
+    section:last-child { border-bottom: none; }
+
+    /* ── HERO ── */
+    #hero {
+      padding-top: 9rem;
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 4rem; align-items: center;
+    }
+    .hero-tag {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      font-family: var(--mono); font-size: 0.72rem;
+      color: var(--teal); letter-spacing: 0.08em;
+      margin-bottom: 1.2rem;
+      opacity: 0; animation: fadeUp 0.5s ease forwards 0.1s;
+    }
+    .hero-tag::before {
+      content: ''; width: 7px; height: 7px;
+      border-radius: 50%; background: var(--teal);
+      display: inline-block;
+    }
+    h1 {
+      font-family: var(--serif);
+      font-size: clamp(2rem, 4.2vw, 2.9rem);
+      color: var(--heading); line-height: 1.2;
+      margin-bottom: 1rem;
+      opacity: 0; animation: fadeUp 0.5s ease forwards 0.2s;
+    }
+    .hero-sub {
+      font-size: 0.95rem; color: var(--muted);
+      font-weight: 400; line-height: 1.7;
+      opacity: 0; animation: fadeUp 0.5s ease forwards 0.32s;
+    }
+
+    /* Role pills */
+    .role-pills {
+      display: flex; gap: 0.5rem; flex-wrap: wrap; margin: 1.25rem 0;
+      opacity: 0; animation: fadeUp 0.5s ease forwards 0.42s;
+    }
+    .pill {
+      font-family: var(--mono); font-size: 0.7rem; font-weight: 500;
+      padding: 0.3rem 0.8rem; border-radius: 20px;
+      letter-spacing: 0.05em;
+    }
+    .pill-blue  { background: var(--blue-lt);  color: var(--blue); }
+    .pill-teal  { background: var(--teal-lt);  color: var(--teal); }
+
+    .hero-cta {
+      display: flex; gap: 0.75rem; flex-wrap: wrap; margin-top: 1.5rem;
+      opacity: 0; animation: fadeUp 0.5s ease forwards 0.52s;
+    }
+    .btn {
+      font-family: var(--sans); font-size: 0.82rem; font-weight: 600;
+      padding: 0.62rem 1.3rem; border-radius: 6px;
+      text-decoration: none; transition: all 0.2s;
+      cursor: pointer; border: none; display: inline-block;
+    }
+    .btn-primary { background: var(--blue); color: #fff; }
+    .btn-primary:hover { background: #1558cc; }
+    .btn-teal { background: var(--teal); color: #fff; }
+    .btn-teal:hover { background: #0a7f65; }
+    .btn-outline {
+      background: transparent; color: var(--text);
+      border: 1.5px solid var(--border);
+    }
+    .btn-outline:hover { border-color: var(--blue); color: var(--blue); }
+
+    /* Hero card */
+    .hero-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 14px; padding: 1.6rem;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.07);
+      opacity: 0; animation: fadeUp 0.5s ease forwards 0.58s;
+    }
+    .hero-card-title {
+      font-family: var(--mono); font-size: 0.67rem; color: var(--muted);
+      letter-spacing: 0.1em; text-transform: uppercase;
+      margin-bottom: 1.1rem; padding-bottom: 0.7rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .card-row {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 0.55rem 0; border-bottom: 1px solid var(--surface2);
+    }
+    .card-row:last-child { border-bottom: none; }
+    .card-label { font-size: 0.8rem; color: var(--muted); }
+    .card-value { font-family: var(--mono); font-size: 0.78rem; color: var(--heading); }
+    .badge {
+      display: inline-block; font-family: var(--mono);
+      font-size: 0.63rem; font-weight: 500;
+      padding: 0.18rem 0.55rem; border-radius: 20px;
+    }
+    .badge-green  { background: var(--teal-lt);  color: var(--teal); }
+    .badge-blue   { background: var(--blue-lt);  color: var(--blue); }
+    .badge-amber  { background: var(--amber-lt); color: var(--amber); }
+
+    /* ── SECTION HEADS ── */
+    .sec-label {
+      font-family: var(--mono); font-size: 0.68rem;
+      color: var(--teal); letter-spacing: 0.12em;
+      text-transform: uppercase; margin-bottom: 0.4rem;
+    }
+    h2 {
+      font-family: var(--serif); font-size: 1.85rem;
+      color: var(--heading); margin-bottom: 1.6rem; line-height: 1.2;
+    }
+
+    /* ── ABOUT ── */
+    .about-grid { display: grid; grid-template-columns: 3fr 2fr; gap: 3rem; align-items: start; }
+    .about-text p { color: var(--text); margin-bottom: 0.95rem; font-weight: 300; }
+    .about-text p:last-child { margin-bottom: 0; }
+    .about-cards { display: flex; flex-direction: column; gap: 0.8rem; }
+    .about-card {
+      display: flex; gap: 0.8rem; align-items: flex-start;
+      padding: 0.95rem 1.1rem;
+      background: var(--surface); border: 1px solid var(--border); border-radius: 8px;
+    }
+    .about-card-icon { font-size: 1.1rem; flex-shrink: 0; margin-top: 0.05rem; }
+    .about-card-label {
+      font-size: 0.68rem; font-weight: 600; color: var(--muted);
+      text-transform: uppercase; letter-spacing: 0.07em; margin-bottom: 0.15rem;
+    }
+    .about-card-text { font-size: 0.82rem; color: var(--text); line-height: 1.5; }
+
+    /* ── CERTS ── */
+    .certs-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1rem; }
+    .cert-card {
+      padding: 1.3rem; background: var(--surface);
+      border: 1px solid var(--border); border-radius: 10px;
+      transition: box-shadow 0.2s, transform 0.2s;
+    }
+    .cert-card:hover { box-shadow: 0 4px 18px rgba(0,0,0,0.08); transform: translateY(-2px); }
+    .cert-icon { font-size: 1.4rem; margin-bottom: 0.7rem; }
+    .cert-name { font-size: 0.87rem; font-weight: 600; color: var(--heading); margin-bottom: 0.2rem; }
+    .cert-issuer { font-size: 0.76rem; color: var(--muted); margin-bottom: 0.6rem; }
+
+    /* ── SKILLS — tabbed ── */
+    .skills-tabs { display: flex; gap: 0.5rem; margin-bottom: 1.5rem; flex-wrap: wrap; }
+    .tab-btn {
+      font-family: var(--sans); font-size: 0.8rem; font-weight: 500;
+      padding: 0.45rem 1rem; border-radius: 6px; cursor: pointer;
+      border: 1.5px solid var(--border); background: transparent;
+      color: var(--muted); transition: all 0.2s;
+    }
+    .tab-btn:hover { border-color: var(--blue); color: var(--blue); }
+    .tab-btn.active { background: var(--blue); color: #fff; border-color: var(--blue); }
+    .tab-btn.active-teal { background: var(--teal); color: #fff; border-color: var(--teal); }
+    .skills-panel { display: none; }
+    .skills-panel.active { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; }
+    .skill-group {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 10px; padding: 1.25rem;
+    }
+    .skill-group-title {
+      font-family: var(--mono); font-size: 0.68rem; color: var(--blue);
+      letter-spacing: 0.1em; text-transform: uppercase;
+      margin-bottom: 0.85rem; padding-bottom: 0.7rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .skill-group-title.teal { color: var(--teal); }
+    .skill-list { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+    .skill-tag {
+      font-size: 0.76rem; padding: 0.28rem 0.7rem;
+      background: var(--surface2); border: 1px solid var(--border);
+      border-radius: 20px; color: var(--text);
+    }
+
+    /* ── PROJECTS / TOOLS ── */
+    .tools-intro {
+      font-size: 0.93rem; color: var(--muted); font-weight: 300;
+      max-width: 560px; margin-bottom: 2rem; line-height: 1.7;
+    }
+    .tools-tabs { display: flex; gap: 0.5rem; margin-bottom: 1.5rem; }
+    .tool-panel { display: none; }
+    .tool-panel.active { display: block; }
+
+    /* ── LOG ANALYZER ── */
+    .analyzer-wrap {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 12px; overflow: hidden;
+      box-shadow: 0 2px 16px rgba(0,0,0,0.05);
+    }
+    .tool-header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0.9rem 1.4rem;
+      background: var(--surface2); border-bottom: 1px solid var(--border);
+    }
+    .tool-header-title { font-size: 0.85rem; font-weight: 600; color: var(--heading); }
+    .tool-header-sub { font-size: 0.75rem; color: var(--muted); }
+    .tool-body { padding: 1.4rem; }
+    .input-label {
+      font-family: var(--mono); font-size: 0.68rem; font-weight: 500;
+      color: var(--muted); letter-spacing: 0.09em;
+      text-transform: uppercase; margin-bottom: 0.45rem; display: block;
+    }
+    textarea {
+      width: 100%; min-height: 150px;
+      background: var(--bg); border: 1.5px solid var(--border);
+      color: var(--text); font-family: var(--mono);
+      font-size: 0.77rem; line-height: 1.6;
+      padding: 0.8rem 1rem; border-radius: 6px;
+      resize: vertical; outline: none; transition: border-color 0.2s;
+    }
+    textarea:focus { border-color: var(--teal); }
+    textarea::placeholder { color: var(--muted); }
+    .tool-controls { display: flex; gap: 0.65rem; flex-wrap: wrap; margin-top: 0.8rem; }
+    .sel {
+      font-family: var(--sans); font-size: 0.82rem;
+      background: var(--bg); border: 1.5px solid var(--border);
+      color: var(--text); padding: 0.55rem 0.85rem;
+      border-radius: 6px; outline: none; cursor: pointer;
+    }
+    .btn-run {
+      font-family: var(--sans); font-size: 0.82rem; font-weight: 600;
+      padding: 0.55rem 1.25rem; background: var(--teal); color: #fff;
+      border: none; border-radius: 6px; cursor: pointer; transition: background 0.2s;
+    }
+    .btn-run:hover { background: #0a7f65; }
+    .btn-ghost {
+      font-family: var(--sans); font-size: 0.8rem; font-weight: 500;
+      padding: 0.55rem 1rem; background: transparent; color: var(--muted);
+      border: 1.5px solid var(--border); border-radius: 6px;
+      cursor: pointer; transition: all 0.2s;
+    }
+    .btn-ghost:hover { color: var(--text); border-color: var(--muted); }
+    .btn-sample {
+      font-family: var(--sans); font-size: 0.78rem; font-weight: 500;
+      padding: 0.55rem 1rem; background: transparent; color: var(--blue);
+      border: 1.5px solid rgba(26,110,245,0.25); border-radius: 6px;
+      cursor: pointer; transition: all 0.2s;
+    }
+    .btn-sample:hover { background: var(--blue-lt); }
+
+    /* Analyzer results */
+    #log-results { margin-top: 1.2rem; display: none; }
+    .results-bar { display: flex; gap: 0.75rem; flex-wrap: wrap; margin-bottom: 1rem; }
+    .rchip {
+      font-family: var(--mono); font-size: 0.7rem;
+      padding: 0.25rem 0.7rem; border-radius: 20px; border: 1px solid;
+    }
+    .rchip-total  { color: var(--text);   border-color: var(--border); background: var(--surface2); }
+    .rchip-crit   { color: var(--red);    border-color: rgba(208,48,80,0.3);  background: var(--red-lt); }
+    .rchip-high   { color: var(--amber);  border-color: rgba(196,127,0,0.3);  background: var(--amber-lt); }
+    .rchip-med    { color: #7a6200;       border-color: rgba(200,170,0,0.3);  background: #fffbe6; }
+    .rchip-low    { color: var(--blue);   border-color: rgba(26,110,245,0.3); background: var(--blue-lt); }
+    .findings { display: flex; flex-direction: column; gap: 0.45rem; }
+    .finding {
+      display: grid; grid-template-columns: 72px 1fr auto;
+      gap: 0.75rem; align-items: start;
+      padding: 0.7rem 1rem;
+      background: var(--bg); border: 1px solid var(--border);
+      border-radius: 6px; border-left: 3px solid;
+      font-family: var(--mono); font-size: 0.74rem;
+    }
+    .finding.sc { border-left-color: var(--red); }
+    .finding.sh { border-left-color: var(--amber); }
+    .finding.sm { border-left-color: #c8b000; }
+    .finding.sl { border-left-color: var(--blue); }
+    .finding.si { border-left-color: var(--muted); }
+    .fsev {
+      font-size: 0.63rem; font-weight: 600;
+      letter-spacing: 0.08em; text-transform: uppercase; padding-top: 0.05rem;
+    }
+    .sc .fsev { color: var(--red); }
+    .sh .fsev { color: var(--amber); }
+    .sm .fsev { color: #8a7000; }
+    .sl .fsev { color: var(--blue); }
+    .si .fsev { color: var(--muted); }
+    .fmsg { color: var(--text); line-height: 1.5; }
+    .fline { color: var(--muted); font-size: 0.66rem; white-space: nowrap; }
+    .fsnip { color: var(--muted); font-size: 0.67rem; margin-top: 0.28rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .no-findings {
+      font-family: var(--mono); font-size: 0.8rem; color: var(--teal);
+      padding: 1rem; text-align: center;
+      background: var(--teal-lt); border: 1px solid rgba(13,158,126,0.2); border-radius: 6px;
+    }
+
+    /* ── TICKET SIMULATOR ── */
+    .ticket-controls-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem; }
+    label.field-label {
+      font-family: var(--mono); font-size: 0.68rem; font-weight: 500;
+      color: var(--muted); letter-spacing: 0.09em;
+      text-transform: uppercase; margin-bottom: 0.4rem; display: block;
+    }
+    select, input {
+      width: 100%; font-family: var(--sans); font-size: 0.85rem;
+      background: var(--bg); border: 1.5px solid var(--border);
+      color: var(--text); padding: 0.6rem 0.9rem;
+      border-radius: 6px; outline: none; transition: border-color 0.2s;
+    }
+    select:focus { border-color: var(--blue); }
+    #ticket-result { margin-top: 1.2rem; display: none; }
+    .ticket-card {
+      border: 1.5px solid var(--border); border-radius: 10px; overflow: hidden;
+    }
+    .ticket-card-head {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0.8rem 1.25rem;
+      background: var(--surface2); border-bottom: 1px solid var(--border);
+    }
+    .ticket-id { font-family: var(--mono); font-size: 0.73rem; color: var(--muted); }
+    .prio-badge {
+      font-family: var(--mono); font-size: 0.63rem; font-weight: 600;
+      padding: 0.2rem 0.6rem; border-radius: 20px; text-transform: uppercase; letter-spacing: 0.06em;
+    }
+    .ph { background: var(--red-lt);   color: var(--red); }
+    .pm { background: var(--amber-lt); color: var(--amber); }
+    .pl { background: var(--teal-lt);  color: var(--teal); }
+    .ticket-card-body { padding: 1.25rem; }
+    .t-issue { font-size: 0.92rem; font-weight: 600; color: var(--heading); margin-bottom: 0.4rem; }
+    .t-desc  { font-size: 0.82rem; color: var(--muted); margin-bottom: 1.2rem; line-height: 1.6; }
+    .steps-label {
+      font-family: var(--mono); font-size: 0.67rem; color: var(--blue);
+      letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.7rem;
+    }
+    .steps { display: flex; flex-direction: column; gap: 0.45rem; counter-reset: s; }
+    .step {
+      display: flex; gap: 0.8rem; align-items: flex-start;
+      padding: 0.7rem 0.95rem; background: var(--bg);
+      border: 1px solid var(--border); border-radius: 6px;
+      font-size: 0.82rem; color: var(--text); counter-increment: s;
+    }
+    .step::before {
+      content: counter(s);
+      display: flex; align-items: center; justify-content: center;
+      min-width: 21px; height: 21px; border-radius: 50%;
+      background: var(--blue-lt); color: var(--blue);
+      font-family: var(--mono); font-size: 0.68rem; font-weight: 600;
+      flex-shrink: 0; margin-top: 0.06rem;
+    }
+    .escalate {
+      margin-top: 0.8rem; padding: 0.7rem 1rem;
+      background: var(--amber-lt); border: 1px solid rgba(196,127,0,0.2);
+      border-radius: 6px; font-size: 0.79rem; color: var(--amber);
+    }
+    .escalate strong { font-weight: 600; }
+
+    /* ── FOOTER ── */
+    footer {
+      padding: 3rem 2rem; text-align: center;
+      font-size: 0.78rem; color: var(--muted);
+      border-top: 1px solid var(--border);
+    }
+    footer a { color: var(--blue); text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+
+    /* ── ANIMATION ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(14px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 680px) {
+      #hero { grid-template-columns: 1fr; gap: 2rem; }
+      .about-grid { grid-template-columns: 1fr; }
+      .skills-panel.active { grid-template-columns: 1fr; }
+      .ticket-controls-grid { grid-template-columns: 1fr; }
+      nav { padding: 0 1.25rem; }
+      .nav-links { gap: 1.1rem; }
+      main { padding: 0 1.25rem; }
+      .finding { grid-template-columns: 62px 1fr; }
+      .fline { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="#hero">Dennis</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#certs">Certs</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#tools">Tools</a></li>
+  </ul>
+</nav>
+
+<main>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div>
+      <div class="hero-tag">Open to IT Opportunities in Edmonton</div>
+      <h1>IT Professional.<br/>Support-First.<br/>Security-Minded.</h1>
+      <p class="hero-sub">
+        NAIT IT Systems Administration student with hands-on experience, two Google
+        professional certifications, and a passion for both helping people and
+        protecting systems.
+      </p>
+      <div class="role-pills">
+        <span class="pill pill-blue">Helpdesk &amp; IT Support</span>
+        <span class="pill pill-teal">Blue Team &amp; SOC</span>
+      </div>
+      <div class="hero-cta">
+        <a href="#tools" class="btn btn-teal">See Live Tools ↓</a>
+        <a href="#about" class="btn btn-outline">About Me</a>
+        <a href="https://linkedin.com/in/dennis-inthavong" target="_blank" class="btn btn-outline">LinkedIn</a>
+        <a href="https://linkedin.com/in/dennis-inthavong">
+        <img id="linkedin" src="https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png" style="height:14px;width:auto;display:inline" alt="Linkedin icon" />LinkedIn</a>
+        <a href="https://github.com/dennis-inthavong" target="_blank" class="btn btn-outline">GitHub</a>
+      </div>
+    </div>
+    <div class="hero-card">
+      <div class="hero-card-title">// quick profile</div>
+      <div class="card-row"><span class="card-label">Program</span><span class="card-value">NAIT IT Sys Admin</span></div>
+      <div class="card-row"><span class="card-label">Location</span><span class="card-value">Edmonton, AB 🇨🇦</span></div>
+      <div class="card-row"><span class="card-label">Google IT Support</span><span class="badge badge-green">✓ Certified</span></div>
+      <div class="card-row"><span class="card-label">Google Cybersecurity</span><span class="badge badge-green">✓ Certified</span></div>
+      <div class="card-row"><span class="card-label">CompTIA Security+</span><span class="badge badge-blue">In Progress</span></div>
+      <div class="card-row"><span class="card-label">Target Roles</span><span class="badge badge-amber">Helpdesk / SOC</span></div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="sec-label">01 — about</div>
+    <h2>Who I Am</h2>
+    <div class="about-grid">
+      <div class="about-text">
+        <p>
+          I'm a first-year IT Systems Administration student at NAIT in Edmonton,
+          combining formal education with hands-on lab work and two
+          Google certifications. I'm actively building the skills
+          needed to contribute immediately in both support and security contexts.
+        </p>
+        <p>
+          On the support side, I genuinely enjoy the problem-solving aspect of
+          helpdesk work and the satisfaction of getting someone back up and running
+          quickly. I'm patient, methodical, and comfortable communicating technical
+          concepts to non-technical users.
+        </p>
+        <p>
+          On the security side, I'm currently building a home lab running pfSense to
+          practice threat detection and incident response in a hands-on environment while 
+          trying to build a long-term career goal in blue team SOC operations.
+        </p>
+      </div>
+      <div class="about-cards">
+        <div class="about-card">
+          <div class="about-card-icon">🎓</div>
+          <div>
+            <div class="about-card-label">Education</div>
+            <div class="about-card-text">NAIT IT Systems Administration — Year 1, Edmonton AB</div>
+          </div>
+        </div>
+        <div class="about-card">
+          <div class="about-card-icon">🛠️</div>
+          <div>
+            <div class="about-card-label">Home Lab</div>
+            <div class="about-card-text">Windows Server, Active Directory, pfSense</div>
+          </div>
+        </div>
+        <div class="about-card">
+          <div class="about-card-icon">🎯</div>
+          <div>
+            <div class="about-card-label">Career Goal</div>
+            <div class="about-card-text">Helpdesk → SOC Analyst → AppSec</div>
+          </div>
+        </div>
+        <div class="about-card">
+          <div class="about-card-icon">📍</div>
+          <div>
+            <div class="about-card-label">Availability</div>
+            <div class="about-card-text">Open to on-site, hybrid, or remote roles in Edmonton</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CERTS -->
+  <section id="certs">
+    <div class="sec-label">02 — certifications</div>
+    <h2>Credentials</h2>
+    <div class="certs-grid">
+      <div class="cert-card">
+        <div class="cert-icon">🖥️</div>
+        <div class="cert-name">IT Support Professional</div>
+        <div class="cert-issuer">Google / Coursera</div>
+        <span class="badge badge-green">✓ Earned</span>
+      </div>
+      <div class="cert-card">
+        <div class="cert-icon">🔐</div>
+        <div class="cert-name">Cybersecurity Professional</div>
+        <div class="cert-issuer">Google / Coursera</div>
+        <span class="badge badge-green">✓ Earned</span>
+      </div>
+      <div class="cert-card">
+        <div class="cert-icon">☁️</div>
+        <div class="cert-name">AZ-900: Azure Fundamentals</div>
+        <div class="cert-issuer">Microsoft</div>
+        <span class="badge badge-blue">Planned</span>
+      </div>
+      <div class="cert-card">
+        <div class="cert-icon">🎓</div>
+        <div class="cert-name">ITSA Diploma</div>
+        <div class="cert-issuer">NAIT — Expected 2027</div>
+        <span class="badge badge-blue">In Progress</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills">
+    <div class="sec-label">03 — skills</div>
+    <h2>Technical Skills</h2>
+    <div class="skills-tabs">
+      <button class="tab-btn active" onclick="switchSkillTab('support', this)">IT Support</button>
+      <button class="tab-btn" onclick="switchSkillTab('security', this)">Cybersecurity</button>
+    </div>
+
+    <div class="skills-panel active" id="skills-support">
+      <div class="skill-group">
+        <div class="skill-group-title">End-User Support</div>
+        <div class="skill-list">
+          <span class="skill-tag">Hardware Troubleshooting</span>
+          <span class="skill-tag">Software Installation</span>
+          <span class="skill-tag">OS Support (Win/Mac/Linux)</span>
+          <span class="skill-tag">Printer &amp; Peripheral Setup</span>
+          <span class="skill-tag">Remote Desktop</span>
+          <span class="skill-tag">Ticket Documentation</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-title">Systems &amp; Infrastructure</div>
+        <div class="skill-list">
+          <span class="skill-tag">Active Directory</span>
+          <span class="skill-tag">Windows Server</span>
+          <span class="skill-tag">User Provisioning</span>
+          <span class="skill-tag">Group Policy</span>
+          <span class="skill-tag">DNS &amp; DHCP</span>
+          <span class="skill-tag">Microsoft 365</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-title">Networking</div>
+        <div class="skill-list">
+          <span class="skill-tag">TCP/IP</span>
+          <span class="skill-tag">VPN Troubleshooting</span>
+          <span class="skill-tag">WiFi &amp; LAN Support</span>
+          <span class="skill-tag">Network Cabling</span>
+          <span class="skill-tag">Basic Firewall Config</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-title">Tools &amp; Platforms</div>
+        <div class="skill-list">
+          <span class="skill-tag">Microsoft Teams</span>
+          <span class="skill-tag">PowerShell</span>
+          <span class="skill-tag">Bash</span>
+          <span class="skill-tag">GLPI</span>
+          <span class="skill-tag">Git</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="skills-panel" id="skills-security">
+      <div class="skill-group">
+        <div class="skill-group-title teal">Blue Team &amp; SOC</div>
+        <div class="skill-list">
+          <span class="skill-tag">SIEM</span>
+          <span class="skill-tag">Log Analysis</span>
+          <span class="skill-tag">Threat Detection</span>
+          <span class="skill-tag">Incident Response</span>
+          <span class="skill-tag">Wireshark</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-title teal">Security Infrastructure</div>
+        <div class="skill-list">
+          <span class="skill-tag">pfSense / Firewall</span>
+          <span class="skill-tag">VLANs</span>
+          <span class="skill-tag">Network Segmentation</span>
+          <span class="skill-tag">Endpoint Security</span>
+          <span class="skill-tag">Vulnerability Management</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-title teal">Scripting &amp; Automation</div>
+        <div class="skill-list">
+          <span class="skill-tag">Python</span>
+          <span class="skill-tag">PowerShell</span>
+          <span class="skill-tag">Bash</span>
+          <span class="skill-tag">Git</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TOOLS -->
+  <section id="tools">
+    <div class="sec-label">04 — live projects</div>
+    <h2>Interactive Tools</h2>
+    <p class="tools-intro">
+      Two live demos built to showcase practical skills — a helpdesk ticket
+      troubleshooter and a security log analyzer. Both run entirely in the browser.
+    </p>
+
+    <div class="tools-tabs">
+      <button class="tab-btn active" onclick="switchToolTab('ticket', this)">🖥️ Ticket Simulator</button>
+      <button class="tab-btn" onclick="switchToolTab('analyzer', this)">🔍 Log Analyzer</button>
+    </div>
+
+    <!-- TICKET SIMULATOR -->
+    <div class="tool-panel active" id="tool-ticket">
+      <div class="analyzer-wrap">
+        <div class="tool-header">
+          <div>
+            <div class="tool-header-title">Helpdesk Ticket Simulator</div>
+            <div class="tool-header-sub">Step-by-step troubleshooting walkthroughs for common support scenarios</div>
+          </div>
+          <span class="badge badge-green">● Online</span>
+        </div>
+        <div class="tool-body">
+          <div class="ticket-controls-grid">
+            <div>
+              <label class="field-label">Issue Category</label>
+              <select id="ticketCat">
+                <option value="">— Select category —</option>
+                <option value="password">Password &amp; Account Access</option>
+                <option value="network">Network Connectivity</option>
+                <option value="email">Email &amp; Microsoft 365</option>
+                <option value="hardware">Hardware &amp; Peripherals</option>
+                <option value="software">Software &amp; Applications</option>
+                <option value="printer">Printer Issues</option>
+                <option value="vpn">VPN &amp; Remote Access</option>
+                <option value="slowpc">Slow / Unresponsive PC</option>
+              </select>
+            </div>
+            <div>
+              <label class="field-label">Priority</label>
+              <select id="ticketPrio">
+                <option value="medium">Medium — Normal business impact</option>
+                <option value="high">High — User cannot work</option>
+                <option value="low">Low — Minor inconvenience</option>
+              </select>
+            </div>
+          </div>
+          <div style="display:flex;gap:0.65rem;flex-wrap:wrap;">
+            <button class="btn-run" onclick="genTicket()">Generate Ticket Response</button>
+            <button class="btn-ghost" onclick="randTicket()">Random Ticket</button>
+          </div>
+          <div id="ticket-result"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- LOG ANALYZER -->
+    <div class="tool-panel" id="tool-analyzer">
+      <div class="analyzer-wrap">
+        <div class="tool-header">
+          <div>
+            <div class="tool-header-title">Log Analyzer</div>
+            <div class="tool-header-sub">Parses Windows Event Log &amp; Linux syslog — flags suspicious activity by severity</div>
+          </div>
+          <span class="badge badge-green" id="log-status">ready</span>
+        </div>
+        <div class="tool-body">
+          <label class="input-label">Paste log entries</label>
+          <textarea id="logInput" placeholder="Paste Windows Event Log or Linux syslog entries here...
+
+Example:
+Jun 10 03:22:11 server sshd[1234]: Failed password for root from 192.168.1.105 port 54321 ssh2
+Jun 10 03:22:13 server sshd[1234]: Failed password for root from 192.168.1.105 port 54321 ssh2"></textarea>
+          <div class="tool-controls">
+            <select class="sel" id="logType">
+              <option value="auto">Auto-detect</option>
+              <option value="linux">Linux Syslog</option>
+              <option value="windows">Windows Event Log</option>
+            </select>
+            <button class="btn-run" onclick="runAnalyzer()">Analyze</button>
+            <button class="btn-ghost" onclick="clearLog()">Clear</button>
+            <button class="btn-sample" onclick="loadSample('linux')">Linux Sample</button>
+            <button class="btn-sample" onclick="loadSample('windows')">Windows Sample</button>
+          </div>
+          <div id="log-results"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  Dennis · Edmonton, Alberta ·
+  <a href="https://linkedin.com/in/YOUR-USERNAME" target="_blank">LinkedIn</a> ·
+  <a href="https://github.com/YOUR-USERNAME" target="_blank">GitHub</a> ·
+  NAIT IT Systems Administration
+</footer>
+
+<script>
+  /* ── TAB SWITCHING ── */
+  function switchSkillTab(id, btn) {
+    document.querySelectorAll('.skills-panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.skills-tabs .tab-btn').forEach(b => b.classList.remove('active','active-teal'));
+    document.getElementById('skills-' + id).classList.add('active');
+    btn.classList.add(id === 'security' ? 'active-teal' : 'active');
+  }
+
+  function switchToolTab(id, btn) {
+    document.querySelectorAll('.tool-panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.tools-tabs .tab-btn').forEach(b => b.classList.remove('active','active-teal'));
+    document.getElementById('tool-' + id).classList.add('active');
+    btn.classList.add(id === 'analyzer' ? 'active-teal' : 'active');
+  }
+
+  /* ── TICKET SIMULATOR ── */
+  const tickets = {
+    password: {
+      issue: "User cannot log in — account locked or password forgotten",
+      desc: "User is unable to access their workstation or business application due to a locked account or expired password.",
+      steps: ["Verify the user's identity using your org's verification process (employee ID, manager confirmation, etc.)","Check Active Directory or Azure AD to confirm the account is locked or the password has expired","Unlock the account or initiate a password reset via AD Users and Computers or the M365 Admin Center","Have the user log in and confirm access is restored","Remind the user of the password policy (length, complexity, rotation schedule)","Document the ticket with timestamp, resolution method, and close"],
+      escalate: null
+    },
+    network: {
+      issue: "User has no internet or network connectivity",
+      desc: "User's workstation cannot reach internal resources or the internet. May affect one user or multiple.",
+      steps: ["Ask if this affects only their machine or others nearby — if multiple, escalate to network team immediately","Check physical connections — is the ethernet cable seated? Are link lights lit on the switch port?","Run ipconfig /all — check for a valid IP or a 169.254.x.x APIPA address (indicates DHCP failure)","Try ipconfig /release then ipconfig /renew to request a new DHCP lease","Ping the default gateway — if it fails, the issue is at the network layer","Ping 8.8.8.8 — if successful but websites don't load, check DNS settings","Try disabling and re-enabling the network adapter","If Wi-Fi: forget and reconnect the network, verify other devices aren't also affected"],
+      escalate: "If multiple users are affected or the gateway ping fails, escalate to the network/infrastructure team."
+    },
+    email: {
+      issue: "User cannot send or receive email / Outlook not working",
+      desc: "User is experiencing issues with Outlook or email delivery — not loading, not syncing, or returning errors.",
+      steps: ["Test webmail (outlook.office.com) — if it works, the issue is client-side not server-side","Check the user's mailbox size — a full mailbox blocks new mail","Restart Outlook and check the connection status indicator in the bottom-right corner","Run Outlook in safe mode: hold Ctrl while opening, or run outlook.exe /safe","If safe mode works, disable add-ins one by one to find the culprit","Try creating a new Outlook profile via Control Panel > Mail > Show Profiles","Check the Microsoft 365 Service Health dashboard for active outages"],
+      escalate: "If M365 Service Health shows an active incident, inform the user and monitor — no local fix is possible."
+    },
+    hardware: {
+      issue: "Hardware not working — monitor, keyboard, mouse, or other peripheral",
+      desc: "A peripheral device is unresponsive, not detected, or malfunctioning.",
+      steps: ["Identify the device and its connection type (USB, Bluetooth, HDMI, DisplayPort, etc.)","Disconnect and reconnect the device — for USB, try a different port","Test the device on a known-working machine to isolate whether it's the device or the computer","Check Device Manager for driver errors (yellow exclamation marks)","Update or reinstall the device driver","For monitors: check cables, try a different cable, verify display settings in Windows","If the device is confirmed faulty, initiate a hardware replacement request via your asset management process"],
+      escalate: null
+    },
+    software: {
+      issue: "Application crashing or failing to open",
+      desc: "A business application fails to launch or crashes unexpectedly during use.",
+      steps: ["Ask what the user was doing when it crashed — specific action, file opened, or trigger","Check Windows Event Viewer (Application logs) for error codes at the time of the crash","Try running the application as Administrator to rule out permission issues","Clear temp files associated with the application (check vendor documentation)","Repair the installation via Control Panel > Programs > Change > Repair","Uninstall and reinstall the application if repair fails","Check if a recent Windows Update caused the regression — roll back if necessary"],
+      escalate: "If the issue started after a system update and affects multiple users, escalate to the sysadmin team."
+    },
+    printer: {
+      issue: "Printer not printing or showing offline",
+      desc: "User's printer is unresponsive, shows as offline in Windows, or print jobs are stuck in the queue.",
+      steps: ["Confirm the printer is powered on and has paper and ink/toner","Check Windows — Settings > Bluetooth & devices > Printers & scanners — is it shown as Online?","Clear the print queue: open the printer, select all jobs, and cancel them","Restart the Print Spooler service: open Services.msc, find Print Spooler, right-click > Restart","Remove and re-add the printer from Printers & Scanners settings","If network printer: ping the printer's IP to confirm it's reachable on the network","Reinstall the printer driver from the manufacturer's website if issues persist"],
+      escalate: null
+    },
+    vpn: {
+      issue: "VPN not connecting or dropping connection",
+      desc: "User cannot establish a VPN connection or the connection drops when working remotely.",
+      steps: ["Confirm the user's internet connection works without VPN","Note any specific error codes shown in the VPN client","Verify the user is using the correct VPN credentials (may differ from Windows login)","Check if MFA/2FA is required and functioning","Disconnect, restart the VPN client, and try reconnecting","Confirm the VPN client version is current — update if not","Test from a different network (phone hotspot) to rule out ISP or local network blocking VPN ports","Verify the user's VPN account is active and not disabled in the management console"],
+      escalate: "If multiple remote users cannot connect, escalate to the network team — may be a VPN gateway issue."
+    },
+    slowpc: {
+      issue: "PC is running slowly or freezing",
+      desc: "Workstation is noticeably slower than normal, apps take long to load, or the system freezes periodically.",
+      steps: ["Open Task Manager (Ctrl+Shift+Esc) — check CPU, RAM, and Disk usage, identify resource-heavy processes","Check available disk space — less than 10–15% free can significantly degrade performance","Run Disk Cleanup to remove temporary files","Check for pending Windows Updates running silently in the background","Scan for malware using Windows Defender or your org's endpoint security tool","Review startup programs (Task Manager > Startup tab) and disable unnecessary items","If RAM is consistently at ~100%, document and escalate for a hardware upgrade review","If HDD (not SSD): run chkdsk /f and check S.M.A.R.T. status for drive health"],
+      escalate: "If hardware failure is suspected (failing drive, overheating), escalate for physical inspection and potential replacement."
+    }
+  };
+  const catKeys = Object.keys(tickets);
+
+  function genTicket() {
+    const cat = document.getElementById('ticketCat').value;
+    const prio = document.getElementById('ticketPrio').value;
+    if (!cat) { alert('Please select an issue category first.'); return; }
+    renderTicket(cat, prio);
+  }
+  function randTicket() {
+    const cat = catKeys[Math.floor(Math.random() * catKeys.length)];
+    const prios = ['high','medium','low'];
+    const prio = prios[Math.floor(Math.random() * prios.length)];
+    document.getElementById('ticketCat').value = cat;
+    document.getElementById('ticketPrio').value = prio;
+    renderTicket(cat, prio);
+  }
+  function renderTicket(cat, prio) {
+    const t = tickets[cat];
+    const id = 'TKT-' + Math.floor(10000 + Math.random() * 90000);
+    const pc = { high: 'ph', medium: 'pm', low: 'pl' }[prio];
+    const pl = { high: 'High', medium: 'Medium', low: 'Low' }[prio];
+    const el = document.getElementById('ticket-result');
+    el.style.display = 'block';
+    el.innerHTML = `
+      <div class="ticket-card">
+        <div class="ticket-card-head">
+          <span class="ticket-id">${id} · Assigned: Dennis</span>
+          <span class="prio-badge ${pc}">${pl} Priority</span>
+        </div>
+        <div class="ticket-card-body">
+          <div class="t-issue">${t.issue}</div>
+          <div class="t-desc">${t.desc}</div>
+          <div class="steps-label">Troubleshooting Steps</div>
+          <div class="steps">${t.steps.map(s => `<div class="step">${s}</div>`).join('')}</div>
+          ${t.escalate ? `<div class="escalate"><strong>Escalation Note:</strong> ${t.escalate}</div>` : ''}
+        </div>
+      </div>`;
+    el.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+
+  /* ── LOG ANALYZER ── */
+  const samples = {
+    linux: `Jun 10 03:22:11 server sshd[1234]: Failed password for root from 192.168.1.105 port 54321 ssh2
+Jun 10 03:22:13 server sshd[1234]: Failed password for root from 192.168.1.105 port 54322 ssh2
+Jun 10 03:22:15 server sshd[1234]: Failed password for root from 192.168.1.105 port 54323 ssh2
+Jun 10 03:22:17 server sshd[1234]: Failed password for root from 192.168.1.105 port 54324 ssh2
+Jun 10 03:22:19 server sshd[1234]: Failed password for root from 192.168.1.105 port 54325 ssh2
+Jun 10 03:22:21 server sshd[1235]: Accepted password for admin from 10.0.0.5 port 22 ssh2
+Jun 10 03:23:04 server sudo[5678]: admin : TTY=pts/0 ; PWD=/home/admin ; USER=root ; COMMAND=/bin/bash
+Jun 10 03:23:45 server useradd[5912]: new user: name=backdoor, UID=0, GID=0
+Jun 10 03:24:01 server sshd[1236]: Accepted publickey for sysadmin from 203.0.113.42 port 49812 ssh2
+Jun 10 03:25:10 server kernel: [UFW BLOCK] IN=eth0 OUT= SRC=198.51.100.1 DST=10.0.0.1 DPT=22
+Jun 10 03:26:00 server cron[999]: (root) CMD (/tmp/.hidden/payload.sh)
+Jun 10 03:27:15 server sshd[1237]: Invalid user admin from 185.220.101.3
+Jun 10 03:28:00 server auth[1100]: pam_unix(su:session): session opened for user root by admin(uid=1000)`,
+    windows: `2024-06-10 03:15:00 EventID=4625 Account: Administrator Source: 192.168.1.200 Logon Type: 3 - An account failed to log on
+2024-06-10 03:15:02 EventID=4625 Account: Administrator Source: 192.168.1.200 Logon Type: 3 - An account failed to log on
+2024-06-10 03:15:04 EventID=4625 Account: Administrator Source: 192.168.1.200 Logon Type: 3 - An account failed to log on
+2024-06-10 03:15:06 EventID=4625 Account: Administrator Source: 192.168.1.200 Logon Type: 3 - An account failed to log on
+2024-06-10 03:15:08 EventID=4624 Account: Administrator Source: 192.168.1.200 Logon Type: 3 - An account was successfully logged on
+2024-06-10 03:16:22 EventID=4728 A member was added to a security-enabled global group: Group: Domain Admins Member: newuser
+2024-06-10 03:17:05 EventID=4720 A user account was created: NewAccount: hacker_backdoor
+2024-06-10 03:18:00 EventID=4688 A new process has been created: Process: cmd.exe Parent: explorer.exe User: DOMAIN\\hacker_backdoor
+2024-06-10 03:18:45 EventID=4698 A scheduled task was created: TaskName: \\Microsoft\\Windows\\Update\\svchost_update.exe
+2024-06-10 03:19:10 EventID=4663 An attempt was made to access an object: Object: C:\\Windows\\System32\\sam User: hacker_backdoor
+2024-06-10 03:20:00 EventID=1102 The audit log was cleared: Subject: hacker_backdoor
+2024-06-10 03:21:00 EventID=4648 A logon was attempted using explicit credentials: Target: DC01 User: hacker_backdoor`
+  };
+
+  const rules = [
+    { re: /EventID=1102|audit log was cleared/i,              sev:'critical', msg:'Audit log cleared — active attempt to hide malicious activity' },
+    { re: /useradd.*UID=0|GID=0.*root/i,                      sev:'critical', msg:'New user created with UID=0 (root-level privileges)' },
+    { re: /\/tmp\/.*(payload|shell|hack|backdoor|\.hidden)/i, sev:'critical', msg:'Suspicious cron job executing from /tmp hidden directory' },
+    { re: /EventID=4720.*(hacker|backdoor|malware)/i,         sev:'critical', msg:'Suspicious account name created — possible backdoor account' },
+    { re: /Failed password for root/i,                        sev:'high',     msg:'Failed SSH login targeting root account' },
+    { re: /EventID=4625/i,                                    sev:'high',     msg:'Windows logon failure (Event 4625)' },
+    { re: /EventID=4728|added.*Domain Admins/i,               sev:'high',     msg:'User added to Domain Admins — privilege escalation' },
+    { re: /EventID=4698|scheduled task.*created/i,            sev:'high',     msg:'Scheduled task created — possible persistence mechanism' },
+    { re: /COMMAND=\/bin\/bash|COMMAND=\/bin\/sh/i,           sev:'high',     msg:'Sudo used to spawn root shell — privilege escalation' },
+    { re: /pam_unix.*session opened for user root/i,          sev:'high',     msg:'Root session opened via PAM — check for privilege escalation' },
+    { re: /EventID=4663.*\bsam\b/i,                           sev:'high',     msg:'Access attempt to SAM database — possible credential dumping' },
+    { re: /Invalid user/i,                                    sev:'medium',   msg:'SSH attempt with invalid/non-existent username' },
+    { re: /EventID=4720/i,                                    sev:'medium',   msg:'New Windows user account created' },
+    { re: /EventID=4688.*cmd\.exe/i,                          sev:'medium',   msg:'cmd.exe process spawned — review parent process' },
+    { re: /UFW BLOCK|firewall.*block/i,                       sev:'medium',   msg:'Firewall blocked inbound connection attempt' },
+    { re: /EventID=4648/i,                                    sev:'medium',   msg:'Explicit credential logon attempt — possible lateral movement' },
+    { re: /useradd/i,                                         sev:'medium',   msg:'New Linux user account created' },
+    { re: /Accepted (password|publickey) for/i,               sev:'low',      msg:'Successful SSH login — verify if expected source' },
+    { re: /EventID=4624/i,                                    sev:'low',      msg:'Successful Windows logon — verify if expected' },
+    { re: /sudo\[/i,                                          sev:'low',      msg:'Sudo command executed — review for unusual activity' },
+    { re: /EventID=4663/i,                                    sev:'info',     msg:'Object access attempt logged' },
+    { re: /sshd\[.*\]:/i,                                     sev:'info',     msg:'SSH daemon activity detected' },
+  ];
+
+  function detectBrute(lines) {
+    const counts = {};
+    lines.forEach((line, i) => {
+      const m = line.match(/(?:Failed password|EventID=4625).*?(\d{1,3}(?:\.\d{1,3}){3})/);
+      if (m) { if (!counts[m[1]]) counts[m[1]] = []; counts[m[1]].push(i+1); }
+    });
+    return Object.entries(counts)
+      .filter(([,ls]) => ls.length >= 3)
+      .map(([ip, ls]) => ({
+        sev: ls.length >= 5 ? 'critical' : 'high',
+        msg: `Brute force detected — ${ls.length} failed login attempts from ${ip}`,
+        lineNum: ls[0]
+      }));
+  }
+
+  function runAnalyzer() {
+    const input = document.getElementById('logInput').value.trim();
+    if (!input) { alert('Please paste some log entries first.'); return; }
+    document.getElementById('log-status').textContent = 'analyzing…';
+    setTimeout(() => {
+      const lines = input.split('\n').filter(l => l.trim());
+      const findings = [];
+      const seen = new Set();
+      lines.forEach((line, i) => {
+        rules.forEach(r => {
+          if (r.re.test(line)) {
+            const k = r.msg + '_' + (i+1);
+            if (!seen.has(k)) { seen.add(k); findings.push({ sev: r.sev, msg: r.msg, lineNum: i+1, line: line.trim() }); }
+          }
+        });
+      });
+      const brute = detectBrute(lines);
+      findings.unshift(...brute);
+      const order = { critical:0, high:1, medium:2, low:3, info:4 };
+      findings.sort((a,b) => (order[a.sev]??5)-(order[b.sev]??5));
+      renderLog(findings, lines.length);
+      document.getElementById('log-status').textContent = findings.length + ' finding(s)';
+    }, 280);
+  }
+
+  function renderLog(findings, total) {
+    const el = document.getElementById('log-results');
+    el.style.display = 'block';
+    const c = { critical:0, high:0, medium:0, low:0, info:0 };
+    findings.forEach(f => { if (c[f.sev]!==undefined) c[f.sev]++; });
+    const sevClass = { critical:'sc', high:'sh', medium:'sm', low:'sl', info:'si' };
+    el.innerHTML = `
+      <div class="results-bar">
+        <span class="rchip rchip-total">${total} lines parsed</span>
+        ${c.critical ? `<span class="rchip rchip-crit">${c.critical} critical</span>` : ''}
+        ${c.high     ? `<span class="rchip rchip-high">${c.high} high</span>` : ''}
+        ${c.medium   ? `<span class="rchip rchip-med">${c.medium} medium</span>` : ''}
+        ${c.low      ? `<span class="rchip rchip-low">${c.low} low</span>` : ''}
+        ${c.info     ? `<span class="rchip rchip-total">${c.info} info</span>` : ''}
+      </div>
+      ${findings.length === 0
+        ? '<div class="no-findings">✓ No suspicious patterns detected in provided logs.</div>'
+        : `<div class="findings">${findings.map(f => `
+            <div class="finding ${sevClass[f.sev]}">
+              <div class="fsev">${f.sev}</div>
+              <div class="fmsg">${f.msg}${f.line ? `<div class="fsnip">${esc(f.line.substring(0,110))}${f.line.length>110?'…':''}</div>` : ''}</div>
+              <div class="fline">line ${f.lineNum ?? '—'}</div>
+            </div>`).join('')}</div>`}`;
+  }
+
+  function esc(s) { return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+  function clearLog() {
+    document.getElementById('logInput').value = '';
+    document.getElementById('log-results').style.display = 'none';
+    document.getElementById('log-status').textContent = 'ready';
+  }
+  function loadSample(t) {
+    document.getElementById('logInput').value = samples[t];
+    document.getElementById('logType').value = t;
+    document.getElementById('log-results').style.display = 'none';
+    document.getElementById('log-status').textContent = 'sample loaded';
+  }
+  document.addEventListener('DOMContentLoaded', () => {
+    document.getElementById('logInput').addEventListener('keydown', e => {
+      if (e.ctrlKey && e.key === 'Enter') runAnalyzer();
+    });
+  });
+</script>
+</body>
+</html>
