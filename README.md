@@ -55,7 +55,6 @@ Parses Windows Event Log and Linux syslog entries, flagging suspicious activity 
 
 - ✅ Google IT Support Professional — Coursera
 - ✅ Google Cybersecurity Professional — Coursera
-- 🔄 CompTIA Security+ — In Progress
 - 📅 Microsoft AZ-900 (Azure Fundamentals) — Planned
 
 ---
