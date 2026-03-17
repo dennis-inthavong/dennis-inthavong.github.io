@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Network Scanner — Dennis Inthavong</title>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500;600&family=IBM+Plex+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:       #0d1117;
+      --surface:  #161b22;
+      --surface2: #1c2128;
+      --border:   #30363d;
+      --muted:    #484f58;
+      --text:     #c9d1d9;
+      --heading:  #e6edf3;
+      --green:    #3fb950;
+      --green-lt: rgba(63,185,80,0.1);
+      --blue:     #58a6ff;
+      --blue-lt:  rgba(88,166,255,0.1);
+      --yellow:   #d29922;
+      --yellow-lt:rgba(210,153,34,0.1);
+      --red:      #f85149;
+      --red-lt:   rgba(248,81,73,0.1);
+      --mono:     'IBM Plex Mono', monospace;
+      --sans:     'IBM Plex Sans', sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--mono);
+      font-size: 14px;
+      line-height: 1.6;
+      min-height: 100vh;
+      padding: 2rem;
+    }
+
+    /* ── HEADER ── */
+    .header {
+      max-width: 860px; margin: 0 auto 2rem;
+      display: flex; align-items: flex-start; justify-content: space-between;
+      flex-wrap: wrap; gap: 1rem;
+    }
+    .header-left { }
+    .header-title {
+      font-size: 1.1rem; font-weight: 600;
+      color: var(--heading); letter-spacing: -0.01em;
+    }
+    .header-sub {
+      font-size: 0.75rem; color: var(--muted);
+      margin-top: 0.2rem;
+    }
+    .header-warn {
+      font-size: 0.72rem;
+      color: var(--yellow);
+      background: var(--yellow-lt);
+      border: 1px solid rgba(210,153,34,0.25);
+      padding: 0.35rem 0.75rem;
+      border-radius: 4px;
+      display: flex; align-items: center; gap: 0.4rem;
+    }
+
+    /* ── MAIN CARD ── */
+    .card {
+      max-width: 860px; margin: 0 auto 1.25rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px; overflow: hidden;
+    }
+    .card-header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0.75rem 1.25rem;
+      background: var(--surface2);
+      border-bottom: 1px solid var(--border);
+    }
+    .card-title {
+      font-size: 0.75rem; font-weight: 500;
+      color: var(--green); letter-spacing: 0.06em;
+    }
+    .status-dot {
+      width: 7px; height: 7px; border-radius: 50%;
+      background: var(--muted); display: inline-block;
+      margin-right: 0.4rem;
+      transition: background 0.3s;
+    }
+    .status-dot.active { background: var(--green); animation: pulse 1.5s infinite; }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+    .card-body { padding: 1.25rem; }
+
+    /* ── INPUT FORM ── */
+    .scan-form {
+      display: grid; grid-template-columns: 1fr auto auto;
+      gap: 0.75rem; align-items: end; margin-bottom: 1rem;
+    }
+    .field-label {
+      font-size: 0.68rem; color: var(--muted);
+      letter-spacing: 0.09em; text-transform: uppercase;
+      margin-bottom: 0.35rem; display: block;
+    }
+    input[type="text"] {
+      width: 100%;
+      font-family: var(--mono); font-size: 0.82rem;
+      background: var(--bg); border: 1px solid var(--border);
+      color: var(--text); padding: 0.6rem 0.9rem;
+      border-radius: 5px; outline: none;
+      transition: border-color 0.2s;
+    }
+    input[type="text"]:focus { border-color: var(--green); }
+    input[type="text"]::placeholder { color: var(--muted); }
+
+    .btn {
+      font-family: var(--mono); font-size: 0.78rem; font-weight: 500;
+      padding: 0.6rem 1.2rem; border-radius: 5px;
+      cursor: pointer; border: none; transition: all 0.2s;
+      white-space: nowrap;
+    }
+    .btn-primary { background: var(--green); color: #000; font-weight: 600; }
+    .btn-primary:hover { background: #56d364; }
+    .btn-primary:disabled { background: var(--muted); color: var(--surface); cursor: not-allowed; }
+    .btn-ghost {
+      background: transparent; color: var(--muted);
+      border: 1px solid var(--border);
+    }
+    .btn-ghost:hover { border-color: var(--muted); color: var(--text); }
+
+    /* Preset chips */
+    .presets { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1.25rem; }
+    .preset-label { font-size: 0.68rem; color: var(--muted); letter-spacing: 0.08em; text-transform: uppercase; align-self: center; margin-right: 0.25rem; }
+    .preset {
+      font-family: var(--mono); font-size: 0.72rem;
+      padding: 0.25rem 0.65rem; border-radius: 4px;
+      background: var(--surface2); border: 1px solid var(--border);
+      color: var(--blue); cursor: pointer; transition: all 0.2s;
+    }
+    .preset:hover { border-color: var(--blue); background: var(--blue-lt); }
+
+    /* ── TERMINAL OUTPUT ── */
+    .terminal {
+      background: var(--bg); border: 1px solid var(--border);
+      border-radius: 5px; padding: 1rem;
+      min-height: 60px; max-height: 180px; overflow-y: auto;
+      margin-bottom: 1.25rem;
+    }
+    .terminal:empty::before {
+      content: '$ waiting for scan...';
+      color: var(--muted); font-size: 0.78rem;
+    }
+    .log-line {
+      font-size: 0.76rem; line-height: 1.7;
+      animation: fadeIn 0.2s ease;
+    }
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    .log-info    { color: var(--muted); }
+    .log-ok      { color: var(--green); }
+    .log-warn    { color: var(--yellow); }
+    .log-err     { color: var(--red); }
+    .log-heading { color: var(--heading); font-weight: 500; }
+
+    /* ── RESULTS TABLE ── */
+    #results-section { display: none; }
+    .results-bar {
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 0.75rem; margin-bottom: 1rem;
+    }
+    .results-count {
+      font-size: 0.8rem; color: var(--heading); font-weight: 500;
+    }
+    .results-meta { font-size: 0.72rem; color: var(--muted); }
+    .btn-export {
+      font-family: var(--mono); font-size: 0.73rem; font-weight: 500;
+      padding: 0.35rem 0.85rem; border-radius: 4px;
+      background: transparent; color: var(--blue);
+      border: 1px solid rgba(88,166,255,0.3); cursor: pointer;
+      transition: all 0.2s;
+    }
+    .btn-export:hover { background: var(--blue-lt); }
+
+    table {
+      width: 100%; border-collapse: collapse;
+      font-size: 0.78rem;
+    }
+    thead th {
+      text-align: left; padding: 0.55rem 0.85rem;
+      font-size: 0.67rem; font-weight: 500;
+      color: var(--muted); letter-spacing: 0.09em; text-transform: uppercase;
+      border-bottom: 1px solid var(--border);
+      background: var(--surface2);
+    }
+    tbody tr {
+      border-bottom: 1px solid var(--border);
+      transition: background 0.15s;
+    }
+    tbody tr:last-child { border-bottom: none; }
+    tbody tr:hover { background: var(--surface2); }
+    td { padding: 0.6rem 0.85rem; vertical-align: middle; }
+    .td-ip { color: var(--green); font-weight: 500; }
+    .td-hostname { color: var(--text); }
+    .td-hostname.none { color: var(--muted); font-style: italic; }
+    .td-status {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      font-size: 0.7rem; padding: 0.18rem 0.55rem; border-radius: 20px;
+      background: var(--green-lt); color: var(--green);
+      border: 1px solid rgba(63,185,80,0.25);
+    }
+    .td-mac { color: var(--muted); font-size: 0.72rem; }
+
+    /* scan progress bar */
+    .progress-wrap {
+      height: 3px; background: var(--border);
+      border-radius: 2px; margin-bottom: 1rem; display: none;
+    }
+    .progress-bar {
+      height: 100%; width: 0%; background: var(--green);
+      border-radius: 2px; transition: width 0.3s ease;
+    }
+
+    /* ── HOW IT WORKS NOTE ── */
+    .note {
+      max-width: 860px; margin: 0 auto;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--blue);
+      border-radius: 8px; padding: 1rem 1.25rem;
+      font-size: 0.75rem; color: var(--muted); line-height: 1.7;
+    }
+    .note strong { color: var(--blue); font-weight: 500; }
+
+    @media (max-width: 600px) {
+      body { padding: 1rem; }
+      .scan-form { grid-template-columns: 1fr; }
+      .header { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="header-left">
+    <div class="header-title">network_scanner.py - Web UI</div>
+    <div class="header-sub">Dennis Inthavong | Home Lab Tool</div>
+  </div>
+  <div class="header-warn">⚠ Only scan networks you own or have explicit permission to scan</div>
+</div>
+
+<!-- SCANNER CARD -->
+<div class="card">
+  <div class="card-header">
+    <span class="card-title"><span class="status-dot" id="statusDot"></span>Scanner</span>
+    <span style="font-size:0.72rem;color:var(--muted)" id="statusText">idle</span>
+  </div>
+  <div class="card-body">
+
+    <!-- Input -->
+    <div class="scan-form">
+      <div>
+        <label class="field-label">Target (IP or CIDR subnet)</label>
+        <input type="text" id="targetInput" placeholder="e.g. 192.168.1.0/24 or 10.0.0.1" value="192.168.1.0/24"/>
+      </div>
+      <div style="padding-top:1.4rem">
+        <button class="btn btn-primary" id="scanBtn" onclick="startScan()">▶ Scan</button>
+      </div>
+      <div style="padding-top:1.4rem">
+        <button class="btn btn-ghost" onclick="resetAll()">Reset</button>
+      </div>
+    </div>
+
+    <!-- Preset subnets -->
+    <div class="presets">
+      <span class="preset-label">Common:</span>
+      <span class="preset" onclick="setTarget('192.168.1.0/24')">192.168.1.0/24</span>
+      <span class="preset" onclick="setTarget('192.168.0.0/24')">192.168.0.0/24</span>
+      <span class="preset" onclick="setTarget('10.0.0.0/24')">10.0.0.0/24</span>
+      <span class="preset" onclick="setTarget('172.16.0.0/24')">172.16.0.0/24</span>
+    </div>
+
+    <!-- Progress bar -->
+    <div class="progress-wrap" id="progressWrap">
+      <div class="progress-bar" id="progressBar"></div>
+    </div>
+
+    <!-- Terminal log -->
+    <div class="terminal" id="terminal"></div>
+
+    <!-- Results -->
+    <div id="results-section">
+      <div class="results-bar">
+        <div>
+          <div class="results-count" id="resultsCount"></div>
+          <div class="results-meta" id="resultsMeta"></div>
+        </div>
+        <button class="btn-export" onclick="exportResults()">↓ Export .txt</button>
+      </div>
+      <div style="border:1px solid var(--border);border-radius:6px;overflow:hidden;">
+        <table>
+          <thead>
+            <tr>
+              <th>IP Address</th>
+              <th>Hostname</th>
+              <th>Status</th>
+              <th>Note</th>
+            </tr>
+          </thead>
+          <tbody id="resultsBody"></tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- HOW IT WORKS NOTE -->
+<div class="note">
+  <strong>How this works:</strong> This web UI simulates realistic network scan output based on the subnet you enter.
+  The actual scanning logic runs in the Python script (<code>network_scanner.py</code>) on your machine —
+  this UI demonstrates the tool's interface and output format.
+  To run a real scan against your home lab, execute the Python script in your terminal:
+  <code style="color:var(--green)">python3 network_scanner.py 192.168.1.0/24</code>
+</div>
+
+<script>
+  // ── SIMULATED HOST DATA ─────────────────────────────────────────────────────
+  // Realistic home lab device simulation based on the target subnet
+
+  const deviceTemplates = [
+    { offset: 1,   hostname: 'gateway.local',         note: 'Default gateway / router' },
+    { offset: 2,   hostname: 'firewall.local',         note: 'pfSense / OPNsense' },
+    { offset: 10,  hostname: 'proxmox.local',          note: 'Hypervisor host' },
+    { offset: 20,  hostname: 'dc01.lab.local',         note: 'Domain Controller (AD)' },
+    { offset: 21,  hostname: 'fileserver.lab.local',   note: 'File / NAS server' },
+    { offset: 30,  hostname: 'ubuntu-01.lab.local',    note: 'Linux VM' },
+    { offset: 31,  hostname: 'kali.lab.local',         note: 'Kali Linux VM' },
+    { offset: 40,  hostname: 'wazuh.lab.local',        note: 'SIEM / IDS (Wazuh)' },
+    { offset: 50,  hostname: '',                        note: 'Unknown device' },
+    { offset: 100, hostname: 'desktop-dennis.local',   note: 'Workstation' },
+    { offset: 101, hostname: 'laptop.local',           note: 'Laptop' },
+    { offset: 150, hostname: '',                        note: 'IoT device' },
+    { offset: 200, hostname: 'printer.local',          note: 'Network printer' },
+  ];
+
+  let scanResults = [];
+  let scanTarget  = '';
+  let scanTime    = '';
+
+  function setTarget(val) {
+    document.getElementById('targetInput').value = val;
+  }
+
+  function log(msg, cls = 'log-info') {
+    const t = document.getElementById('terminal');
+    const line = document.createElement('div');
+    line.className = `log-line ${cls}`;
+    line.textContent = msg;
+    t.appendChild(line);
+    t.scrollTop = t.scrollHeight;
+  }
+
+  function setProgress(pct) {
+    const wrap = document.getElementById('progressWrap');
+    const bar  = document.getElementById('progressBar');
+    wrap.style.display = 'block';
+    bar.style.width = pct + '%';
+    if (pct >= 100) setTimeout(() => { wrap.style.display = 'none'; }, 600);
+  }
+
+  function setStatus(text, active = false) {
+    document.getElementById('statusText').textContent = text;
+    document.getElementById('statusDot').className = 'status-dot' + (active ? ' active' : '');
+  }
+
+  // ── PARSE CIDR ──────────────────────────────────────────────────────────────
+  function parseSubnet(cidr) {
+    const parts = cidr.trim().split('/');
+    const base  = parts[0];
+    const octets = base.split('.').map(Number);
+    if (octets.length !== 4 || octets.some(o => isNaN(o) || o < 0 || o > 255)) return null;
+    return { base: octets.slice(0,3).join('.'), prefix: parseInt(parts[1] ?? '32') };
+  }
+
+  // ── SIMULATE SCAN ───────────────────────────────────────────────────────────
+  async function startScan() {
+    const input = document.getElementById('targetInput').value.trim();
+    if (!input) { alert('Please enter a target subnet or IP.'); return; }
+
+    // parse
+    const subnet = parseSubnet(input.includes('/') ? input : input + '/32');
+    if (!subnet) { log('[error] Invalid IP/subnet format. Try: 192.168.1.0/24', 'log-err'); return; }
+
+    // reset UI
+    document.getElementById('terminal').innerHTML = '';
+    document.getElementById('results-section').style.display = 'none';
+    document.getElementById('scanBtn').disabled = true;
+    scanResults = [];
+    scanTarget  = input;
+    scanTime    = new Date().toLocaleString();
+
+    setStatus('scanning...', true);
+    setProgress(0);
+
+    // ── LOG: startup ──
+    log(`[+] Network Scanner v1.0 — Dennis Inthavong`, 'log-heading');
+    log(`[+] Target:   ${input}`, 'log-ok');
+    log(`[+] Time:     ${scanTime}`, 'log-info');
+    log(`[+] Method:   ARP scan (simulated)`, 'log-info');
+    log(`    `, 'log-info');
+    await delay(400);
+
+    log(`[*] Sending ARP requests to ${subnet.base}.0/24...`, 'log-info');
+    await delay(600);
+    setProgress(20);
+
+    log(`[*] Waiting for responses (timeout: 2s)...`, 'log-info');
+    await delay(800);
+    setProgress(45);
+
+    // generate hosts
+    const hosts = deviceTemplates.map(t => ({
+      ip:       `${subnet.base}.${t.offset}`,
+      hostname: t.hostname,
+      note:     t.note
+    }));
+
+    log(`[*] Resolving hostnames via reverse DNS...`, 'log-info');
+    await delay(700);
+    setProgress(75);
+
+    // animate host discovery
+    for (const h of hosts) {
+      const hn = h.hostname || '(no hostname)';
+      log(`    ✓  ${h.ip.padEnd(18)} ${hn}`, 'log-ok');
+      await delay(80);
+    }
+
+    setProgress(100);
+    await delay(300);
+
+    log(`    `, 'log-info');
+    log(`[+] Scan complete — ${hosts.length} live host(s) found`, 'log-ok');
+    setStatus(`${hosts.length} hosts found`, false);
+
+    scanResults = hosts;
+    renderResults(hosts);
+    document.getElementById('scanBtn').disabled = false;
+  }
+
+  // ── RENDER RESULTS TABLE ────────────────────────────────────────────────────
+  function renderResults(hosts) {
+    const sec   = document.getElementById('results-section');
+    const tbody = document.getElementById('resultsBody');
+
+    document.getElementById('resultsCount').textContent = `${hosts.length} live host(s) discovered`;
+    document.getElementById('resultsMeta').textContent  = `Target: ${scanTarget} · Scanned: ${scanTime}`;
+
+    tbody.innerHTML = hosts.map(h => `
+      <tr>
+        <td class="td-ip">${h.ip}</td>
+        <td class="td-hostname ${h.hostname ? '' : 'none'}">${h.hostname || 'no hostname'}</td>
+        <td><span class="td-status">● online</span></td>
+        <td class="td-mac" style="color:var(--muted);font-size:0.72rem">${h.note}</td>
+      </tr>
+    `).join('');
+
+    sec.style.display = 'block';
+  }
+
+  // ── EXPORT ──────────────────────────────────────────────────────────────────
+  function exportResults() {
+    if (!scanResults.length) return;
+    const lines = [
+      'Network Scan Results',
+      `Target:  ${scanTarget}`,
+      `Time:    ${scanTime}`,
+      '─'.repeat(60),
+      `${'IP Address'.padEnd(18)} ${'Hostname'.padEnd(35)} Note`,
+      `${'─'.repeat(18)} ${'─'.repeat(35)} ${'─'.repeat(20)}`,
+      ...scanResults.map(h =>
+        `${h.ip.padEnd(18)} ${(h.hostname || '(no hostname)').padEnd(35)} ${h.note}`
+      ),
+      '',
+      `Total live hosts: ${scanResults.length}`
+    ];
+    const blob = new Blob([lines.join('\n')], { type: 'text/plain' });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = `scan_${Date.now()}.txt`;
+    a.click();
+  }
+
+  // ── RESET ───────────────────────────────────────────────────────────────────
+  function resetAll() {
+    document.getElementById('terminal').innerHTML = '';
+    document.getElementById('results-section').style.display = 'none';
+    document.getElementById('progressWrap').style.display = 'none';
+    document.getElementById('progressBar').style.width = '0%';
+    document.getElementById('scanBtn').disabled = false;
+    setStatus('idle', false);
+    scanResults = [];
+  }
+
+  function delay(ms) { return new Promise(r => setTimeout(r, ms)); }
+</script>
+</body>
+</html>
