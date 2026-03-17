@@ -1,72 +1,51 @@
-# Dennis — IT & Cybersecurity Portfolio
+# My IT & Cybersecurity Portfolio
 
-Personal portfolio site targeting both IT Support and Cybersecurity roles, built as a single static HTML file and hosted via GitHub Pages.
+My personal portfolio site, built from scratch with plain HTML, CSS, and JavaScript. No frameworks, no templates — just me figuring things out and putting something together that actually represents where I'm at and where I'm going.
 
----
-
-## Live Site
-
-**https://dennis-inthavong.github.io/portfolio.html**
+Live at: **https://dennis-inthavong.github.io/portfolio.html**
 
 ---
 
-## About Me
+## What is this?
 
-Entry-level IT professional with hands-on experiences in workstation deployment, Tier 1 support, and security fundamentals. Former IT Technician supporting enterprise environments, with practical exposure to Active Directory, PowerShell, Linux CLI, firewalls and SIEM tools. Certified in Google IT Support and Cybersecurity.
+I'm a first-year IT Systems Administration student at NAIT in Edmonton. I built this portfolio because I wanted something more than a resume — something that shows I can actually apply what I'm learning, not just list it on a page.
+
+The site is aimed at both IT support and cybersecurity roles since that's the path I'm on. I'm looking to get into helpdesk or a similar support role after graduation, then work my way into a SOC analyst position down the road.
+
 ---
 
-## What's In This Repo
+## What's in here
 
 ```
-├── dennis_combined_portfolio.html   # Combined portfolio with both live tools
-└── README.md                        # This file
+├── dennis_combined_portfolio.html   # The whole site — one file
+└── README.md                        # You're reading it
 ```
 
 ---
 
-## Portfolio Features
+## The tools I built into it
 
-### Dual-Audience Design
-The portfolio is built to speak to two types of hiring managers without alienating either:
-- **Helpdesk & IT Support** roles — leads with support skills, troubleshooting experience, and people-first framing
-- **Blue Team & SOC** roles — highlights security tools, log analysis, and threat detection knowledge
+The part I'm most proud of are the two interactive tools embedded in the site.
 
-### Tabbed Skills Section
-Skills are organized into two switchable views:
-- **IT Support** — end-user support, Active Directory, networking, Microsoft 365, ticketing
-- **Cybersecurity** — SIEM, log analysis, threat detection, Microsoft Sentinel, KQL, Wazuh
+**Helpdesk Ticket Simulator**
+Pick a support scenario, hit generate, and it walks through how I'd actually approach and resolve the ticket. Covers things like password resets, network issues, printers, VPN problems, slow PCs, and a few others. I also included escalation notes for situations where you'd need to loop in a senior tech or another team.
 
-### Live Interactive Tools
-
-**🖥️ Helpdesk Ticket Simulator**
-Generates realistic helpdesk tickets with step-by-step troubleshooting walkthroughs across 8 common support scenarios: password resets, network connectivity, email/M365, hardware, software, printers, VPN, and slow PCs. Includes escalation guidance where appropriate.
-
-**🔍 Log Analyzer**
-Parses Windows Event Log and Linux syslog entries, flagging suspicious activity by severity. Detects patterns including:
-- Brute force / credential stuffing attempts
-- Privilege escalation (sudo shell, UID=0 account creation)
-- Suspicious scheduled tasks and cron jobs
-- Audit log clearing
-- Lateral movement indicators
+**Log Analyzer**
+Paste in some Windows Event Log or Linux syslog entries and it flags anything suspicious — brute force attempts, privilege escalation, weird scheduled tasks, audit log clearing, that kind of thing. Severity is colour coded from info all the way up to critical. There are sample logs built in if you want to try it without having real logs handy.
 
 ---
 
-## Certifications
+## Certs
 
-- ✅ Google IT Support Professional — Coursera
-- ✅ Google Cybersecurity Professional — Coursera
-- 📅 Microsoft AZ-900 (Azure Fundamentals) — Planned
-
----
-
-## Tech Stack
-
-Built with vanilla HTML, CSS, and JavaScript — no frameworks, no dependencies, no build tools. Fully static and deployable anywhere.
+- Google IT Support Professional ✓
+- Google Cybersecurity Professional ✓
+- CompTIA Security+ — studying for this right now
+- Microsoft AZ-900 — on the roadmap
 
 ---
 
-## Contact
+## Get in touch
 
-- 📍 Edmonton, Alberta, Canada
-- 💼 [LinkedIn](https://linkedin.com/in/dennis-inthavong)
-- 🐙 [GitHub](https://github.com/dennis-inthavong)
+I'm based in Edmonton and open to opportunities — on-site, hybrid, or remote.
+
+- [LinkedIn](https://linkedin.com/in/dennis-inthavong)
